@@ -2,7 +2,7 @@
 import axios from "axios";
 import { useRef, useState } from "react"
 import { useNavigate } from "react-router-dom";
-import { BACKEND_URL } from "../config";
+import { BACKEND_URL, WS_URL } from "../config";
 import { useRouter } from 'next/navigation'
 export function AuthPage({isSignin} : {
     isSignin: boolean
@@ -10,6 +10,8 @@ export function AuthPage({isSignin} : {
     const usernameref = useRef<HTMLInputElement>(null);
     const passwordref = useRef<HTMLInputElement>(null);
     const router = useRouter();
+    console.log(BACKEND_URL);
+    console.log(WS_URL);
     async function login () {
         const username = usernameref.current?.value;
         const password = passwordref.current?.value;

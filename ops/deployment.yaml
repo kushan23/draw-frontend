@@ -19,14 +19,6 @@ spec:
           image: kush233/draw-frontend:latest
           ports:
             - containerPort: 3000
-          env:
-            - name: NEXT_PUBLIC_BACKEND_URL
-              valueFrom:
-                secretKeyRef:
-                  name: frontend-secret
-                  key: NEXT_PUBLIC_BACKEND_URL
-            - name: NEXT_PUBLIC_WS_URL
-              valueFrom:
-                secretKeyRef:
-                  name: frontend-secret
-                  key: NEXT_PUBLIC_WS_URL
+          envFrom:
+            - configMapRef:
+                name: frontend-configmap
