@@ -1,103 +1,141 @@
-import Image from "next/image";
+import React from 'react';
+import { Pencil, Share2, Cloud, Layers, Github } from 'lucide-react';
+import Link from 'next/link';
 
-export default function Home() {
+function FeatureCard({ icon: Icon, title, description }: { icon: React.ElementType, title: string, description: string }) {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+      <div className="h-12 w-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4">
+        <Icon className="h-6 w-6 text-indigo-600" />
+      </div>
+      <h3 className="text-xl font-semibold mb-2">{title}</h3>
+      <p className="text-gray-600">{description}</p>
+    </div>
+  );
+}
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+function App() {
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+      {/* Header */}
+      <header className="container mx-auto px-6 py-8">
+        <nav className="flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <Pencil className="h-8 w-8 text-indigo-600" />
+            <span className="text-2xl font-bold text-gray-900">Excelidraw</span>
+          </div>
+          <div className="flex items-center space-x-6">
+            <a href="#features" className="text-gray-600 hover:text-gray-900">Features</a>
+            <a href="#about" className="text-gray-600 hover:text-gray-900">About</a>
+            <a href="https://github.com" className="text-gray-600 hover:text-gray-900 flex items-center space-x-1">
+              <Github className="h-5 w-5" />
+              <span>GitHub</span>
+            </a>
+            <button className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition-colors">
+              Try Now
+            </button>
+          </div>
+        </nav>
+      </header>
+
+      {/* Hero Section */}
+      <section className="container mx-auto px-6 py-16 md:py-24">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <h1 className="text-5xl font-bold text-gray-900 leading-tight mb-6">
+              Create Beautiful Diagrams with Ease
+            </h1>
+            <p className="text-xl text-gray-600 mb-8">
+              The open-source whiteboard for sketching hand-drawn like diagrams. Collaborate in real-time with your team.
+            </p>
+            <div className="flex space-x-4">
+              <Link href={'/signin'}>
+              <button className="bg-indigo-600 text-white px-8 py-3 rounded-lg hover:bg-indigo-700 transition-colors">
+                Signin
+              </button>
+              </Link>
+              <Link href={'/signup'}>
+              <button className="border-2 border-gray-300 text-gray-700 px-8 py-3 rounded-lg hover:border-gray-400 transition-colors">
+                Signup
+              </button>
+              </Link>
+            </div>
+          </div>
+          <div className="relative">
+            <img
+              src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?auto=format&fit=crop&w=1200&q=80"
+              alt="Whiteboard Collaboration"
+              className="rounded-2xl shadow-2xl"
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      </section>
+
+      {/* Features Section */}
+      <section id="features" className="bg-gray-50 py-20">
+        <div className="container mx-auto px-6">
+          <h2 className="text-3xl font-bold text-center mb-12">Why Choose Excelidraw?</h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <FeatureCard
+              icon={Pencil}
+              title="Intuitive Drawing"
+              description="Create hand-drawn like diagrams with our intuitive drawing tools and customizable elements."
+            />
+            <FeatureCard
+              icon={Share2}
+              title="Real-time Collaboration"
+              description="Work together with your team in real-time, no matter where they are located."
+            />
+            <FeatureCard
+              icon={Cloud}
+              title="Cloud Storage"
+              description="Your drawings are automatically saved and synced across all your devices."
+            />
+            <FeatureCard
+              icon={Layers}
+              title="Multiple Layers"
+              description="Organize your diagrams with layers for better control and flexibility."
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="container mx-auto px-6 py-20">
+        <div className="bg-indigo-600 rounded-2xl p-12 text-center">
+          <h2 className="text-3xl font-bold text-white mb-4">
+            Ready to Start Creating?
+          </h2>
+          <p className="text-indigo-100 mb-8 max-w-2xl mx-auto">
+            Join thousands of users who are already creating beautiful diagrams with Excelidraw.
+          </p>
+          <button className="bg-white text-indigo-600 px-8 py-3 rounded-lg hover:bg-indigo-50 transition-colors">
+            Get Started for Free
+          </button>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-50 py-12">
+        <div className="container mx-auto px-6">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="flex items-center space-x-2 mb-4 md:mb-0">
+              <Pencil className="h-6 w-6 text-indigo-600" />
+              <span className="text-xl font-bold text-gray-900">Excelidraw</span>
+            </div>
+            <div className="flex space-x-6">
+              <a href="#" className="text-gray-600 hover:text-gray-900">Terms</a>
+              <a href="#" className="text-gray-600 hover:text-gray-900">Privacy</a>
+              <a href="#" className="text-gray-600 hover:text-gray-900">Contact</a>
+            </div>
+          </div>
+          <div className="mt-8 text-center text-gray-500">
+            © {new Date().getFullYear()} Excelidraw. All rights reserved.
+          </div>
+        </div>
       </footer>
     </div>
   );
 }
+
+export default App;
