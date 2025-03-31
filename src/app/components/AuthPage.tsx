@@ -22,6 +22,7 @@ export function AuthPage({isSignin} : {
         console.log(password);
         if(url === "signin") {
             console.log(BACKEND_URL);
+            console.log("BACKEND URL ABOVE ME");
         response = await axios.post(`${BACKEND_URL}/${url}`,{
                 username,
                 password,
