@@ -1,0 +1,36 @@
+name: CD Pipeline
+
+on:
+  workflow_run:
+    workflows: ["CI"]
+    types:
+      - completed
+
+jobs:
+
+  build:
+
+    runs-on: self-hosted
+
+    steps:
+    - name: Doctl setup
+      run: |
+          curl -sL https://github.com/digitalocean/doctl/releases/latest/download/doctl-$(uname -s)-$(uname -m).tar.gz | tar -xzv
+          sudo mv doctl /usr/local/bin
+    - name: Doctl auth
+      run:  doctl auth init --access-token "${{ secrets.DO_ACCESS_TOKEN }}"
+    
+    - name: Get KubeConfig
+      run: doctl kubernetes cluster kubeconfig save draw-app
+    
+    - name: Kubectl setup
+      run: azure/setup-kubectl@v3
+    
+    - name: Update deployment
+      run: |
+          kubectl set image deployment/web-app web-container=kush233/draw-frontend:latest
+          kubectl rollout status deployment/web-app 
+            
+
+
+ 
