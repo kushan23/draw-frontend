@@ -13,10 +13,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Doctl setup
-      run: |
-          curl -sL https://github.com/digitalocean/doctl/releases/latest/download/doctl-$(uname -s)-$(uname -m).tar.gz | tar -xzv
-          sudo mv doctl /usr/local/bin
+    - name: Install doctl
+      uses: digitalocean/action-doctl@v2
+      with:
+        token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+          
     - name: Doctl auth
       run:  doctl auth init --access-token "${{ secrets.DO_ACCESS_TOKEN }}"
     
