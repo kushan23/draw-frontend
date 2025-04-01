@@ -10,9 +10,10 @@ export function AuthPage({isSignin} : {
     const usernameref = useRef<HTMLInputElement>(null);
     const passwordref = useRef<HTMLInputElement>(null);
     const router = useRouter();
-    console.log(BACKEND_URL);
-    console.log(WS_URL);
+    const [loading, setLoading] = useState(false);
+
     async function login () {
+        setLoading(true);
         const username = usernameref.current?.value;
         const password = passwordref.current?.value;
         const name = "user";
@@ -36,13 +37,31 @@ export function AuthPage({isSignin} : {
         })
         
         }
-    const jwt = response?.data.token;
-    console.log(response)
-    console.log(jwt);
-    if(jwt){
-    localStorage.setItem('token', jwt);
-    router.push('/rooms')
-    }
+        try{
+            response = await axios.post(`${BACKEND_URL}/${url}`,{
+                username,
+                password,
+                ...(url === "signup" && {name})
+        });
+        const jwt = response?.data.token;
+        console.log(response)
+        console.log(jwt);
+        if(jwt){
+        localStorage.setItem('token', jwt);
+        router.push('/rooms')
+        }
+        else{
+            alert("Authentication failed. Please try again.");
+        }
+        } catch(error){
+            alert("Authentication failed. Please try again.");
+
+        } finally {
+            setLoading(false); // Stop loading
+        }
+
+
+  
     
 
     }
@@ -56,8 +75,10 @@ export function AuthPage({isSignin} : {
                 <input type="password" ref={passwordref} placeholder="Password"></input>
                 </div>
                 <div className="pt-2 flex items-center justify-center">
-                <button onClick={login}>
-                    {isSignin ? "Sign In" : "Sign Up"}
+                <button onClick={login}
+                     disabled={loading}
+                >
+                    {loading ? "Loading..." : isSignin ? "Sign In" : "Sign Up"}
                 </button>
                 </div>
             </div>
