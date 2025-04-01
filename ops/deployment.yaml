@@ -17,6 +17,7 @@ spec:
       containers:
         - name: web-container
           image: kush233/draw-frontend:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 3000
           envFrom:
