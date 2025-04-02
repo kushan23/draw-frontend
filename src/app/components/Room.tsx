@@ -10,7 +10,9 @@ export function Room({roomId}: {roomId: string}){
 
     useEffect(() => {
         const token = localStorage.getItem('token');
-        const ws = new WebSocket(`${WS_URL}?${token}`);
+        const ws = new WebSocket(`${WS_URL}?token=${token}`);
+        console.log(`${WS_URL}?${token}`);
+        console.log("WEB-socket above me");
         ws.onopen = () => {
             setSocket(ws);
             const data = JSON.stringify({
