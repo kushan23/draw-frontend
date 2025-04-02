@@ -21,6 +21,8 @@ export function AuthPage({isSignin} : {
         const url = isSignin ? "signin" : "signup"
         console.log(username);
         console.log(password);
+        console.log(BACKEND_URL);
+        console.log(WS_URL);
         try{
             response = await axios.post(`${BACKEND_URL}/${url}`,{
                 username,
