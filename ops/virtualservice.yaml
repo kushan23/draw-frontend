@@ -1,14 +1,19 @@
-apiVersion: networking.istio.io/v1alpha3
-kind: Gateway
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
 metadata:
-  name: ingress-gateway
+  name: frontend
+  namespace: default
 spec:
-  selector:
-    istio: ingressgateway  # This selects the Istio Ingress Gateway
-  servers:
-    - port:
-        number: 80
-        name: http
-        protocol: HTTP
-      hosts:
-        - "draw.kushan23.com"
+  hosts:
+    - "draw.kushan23.com"
+  gateways:
+    - ingress-gateway
+  http:
+    - match:
+        - uri:
+            prefix: "/"
+      route:
+        - destination:
+            host: frontend
+            port:
+              number: 80
