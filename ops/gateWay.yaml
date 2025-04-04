@@ -7,8 +7,11 @@ spec:
     istio: ingressgateway  
   servers:
     - port:
-        number: 80
-        name: http
-        protocol: HTTP
+        number: 443
+        name: https
+        protocol: HTTPS
       hosts:
-        - "draw.kushan23.com"
+      - "draw.kushan23.com"
+      tls:
+        mode: SIMPLE
+        credentialName: letsencrypt-prod
