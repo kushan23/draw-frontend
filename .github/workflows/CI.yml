@@ -31,7 +31,7 @@ jobs:
       run: | 
         git clone https://github.com/DoodleMesh/argo-frontend
 
-        sed -i 's|image: kush233/draw-frontend:.*|image: kush233/draw-frontend:${{ github.sha }}| deployment.yaml'
+        sed -i 's|image: kush233/draw-frontend:.*|image: kush233/draw-frontend:${{ github.sha }}|'  deployment.yaml
 
         git config user.name "Github actions bot"
         git config user.email "actions@github.com"
