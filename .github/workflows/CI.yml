@@ -28,7 +28,7 @@ jobs:
         tags: kush233/draw-frontend:${{ github.sha }}
 
     - name: Clone ops-repo & push image tags
-      run:
+      run: | 
         git clone https://github.com/DoodleMesh/argo-frontend
 
         sed -i 's|image: kush233/draw-frontend:.*|image: kush233/draw-frontend:${{ github.sha }}| deployment.yaml'
