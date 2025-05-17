@@ -26,3 +26,15 @@ jobs:
         file: Dockerfile
         push: true
         tags: kush233/draw-frontend:${{ github.sha }}
+
+    - name: Clone ops-repo & push image tags
+      run:
+        git clone https://github.com/DoodleMesh/argo-frontend
+
+        sed -i 's|image: kush233/draw-frontend:.*|image: kush233/draw-frontend:${{ github.sha }}| deployment.yaml'
+
+        git config user.name "Github actions bot"
+        git config user.email "actions@github.com"
+        git add .
+        git commit -m "Updated image tag to ${{ github.sha }}"
+        git push  https://github.com/DoodleMesh/argo-frontend main
